@@ -1,26 +1,16 @@
 from getpass import getpass
 import sys
 
-from flask_script import Manager, Shell
-from flask_migrate import Migrate, MigrateCommand
+import click
+from flask.cli import with_appcontext
+from flask import current_app
 
-from app import app
-from app.models import db, User
-
-
-migrate = Migrate(app, db)
-manager = Manager(app)
-manager.add_command("db", MigrateCommand)
+from .models import db, User
 
 
-def make_shell_context():
-    return dict(app=app, db=db)
-
-
-manager.add_command("shell", Shell(make_context=make_shell_context))
-
-
-@manager.command
+# @manager.command
+@click.command()
+@with_appcontext
 def make_admin_user():
     "Add confirmed administrator account"
     while True:
@@ -52,11 +42,13 @@ def make_admin_user():
     db.session.add(u)
     db.session.commit()
     print "Administrator {} successfully added".format(username)
-    app.logger.info('Administrator {} added with email {}'.format(username,
-                                                                  email))
+    current_app.logger.info('Administrator {} added with email {}'.format(username,
+                                                                          email))
 
 
-@manager.command
+# @manager.command
+@click.command()
+@with_appcontext
 def link_images_to_department():
     """Link existing images to first department"""
     from app.models import Image, db
@@ -71,7 +63,9 @@ def link_images_to_department():
     db.session.commit()
 
 
-@manager.command
+# @manager.command
+@click.command()
+@with_appcontext
 def link_officers_to_department():
     """Links officers and units to first department"""
     from app.models import Officer, Unit, db
@@ -87,7 +81,3 @@ def link_officers_to_department():
         else:
             print "Skipped! Object already assigned to department!"
     db.session.commit()
-
-
-if __name__ == "__main__":
-    manager.run()
