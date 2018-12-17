@@ -1,0 +1,25 @@
+{
+  "name": "openoversight",
+  "version": "1.0.0",
+  "description": "![](docs/img/lpl-logo.png)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucyparsons/OpenOversight.git"
+  },
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/lucyparsons/OpenOversight/issues"
+  },
+  "homepage": "https://github.com/lucyparsons/OpenOversight#readme",
+  "devDependencies": {
+    "eslint": "^5.10.0"
+  }
+}
